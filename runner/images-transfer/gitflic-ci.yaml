@@ -1,0 +1,15 @@
+stages:
+  - repository_sync
+
+repository_sync:
+  stage: repository_sync
+  tags:
+    - "$RUNNER_TAG"
+  script:
+    - bash ci/repository-sync.sh
+  artifacts:
+    name: "contour-sync-$SYNC_REQUEST_ID"
+    paths:
+      - contour-sync-artifacts/
+  rules:
+    - if: '$CONTOUR_SYNC == "1"'
